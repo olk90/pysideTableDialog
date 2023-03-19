@@ -1,3 +1,10 @@
+"""
+This file contains all queries needed by the dialogs
+to access data in the database and show it in the
+respective dialog.
+"""
+
+
 def person_query(search: str) -> str:
     query = """
         select
@@ -43,24 +50,4 @@ def person_fullname_query() -> str:
         from Person p
         order by p.lastname, p.firstname
         """
-    return query
-
-
-def lending_history_query(search: str) -> str:
-    query = """
-        select 
-            l.id,
-            i.name,
-            p.firstname || ' ' || p.lastname,
-            l.lending_date,
-            l.return_date
-        from LendingHistory l
-        inner join Person p on l.lender_id = p.id
-        inner join InventoryItem i on l.item_id = i.id
-        where
-            i.name like '%{search}%'
-            or p.firstname like '%{search}%'
-            or p.lastname like '%{search}%'
-        order by p.lastname, p.firstname, l.lending_date, l.return_date
-    """.format(search=search)
     return query

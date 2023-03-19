@@ -5,7 +5,6 @@ from sqlalchemy.orm import relationship
 Base = declarative_base()
 personTableName = "Person"
 inventoryTableName = "InventoryItem"
-lendingHistoryTableName = "LendingHistory"
 
 
 class DatabaseExport(object):
@@ -33,7 +32,6 @@ class Person(Base):
     email = Column(String(100))
 
     items = relationship(inventoryTableName, back_populates="lender")
-    history = relationship(lendingHistoryTableName, back_populates="lender")
 
     def get_full_name(self):
         return "{} {}".format(self.firstname, self.lastname)
@@ -51,24 +49,8 @@ class InventoryItem(Base):
     mot_required = Column(Boolean, nullable=False)
     next_mot = Column(Date)
 
-    lendings = relationship(lendingHistoryTableName, back_populates="item")
-
     lender_id = Column(Integer, ForeignKey("Person.id"))
     lender = relationship(personTableName, back_populates="items")
-
-
-class LendingHistory(Base):
-    __tablename__ = lendingHistoryTableName
-
-    id = Column(Integer, primary_key=True)
-    lending_date = Column(Date)
-    return_date = Column(Date)
-
-    lender_id = Column(Integer, ForeignKey("Person.id"), nullable=False)
-    lender = relationship("Person", back_populates="history")
-
-    item_id = Column(Integer, ForeignKey("InventoryItem.id"), nullable=False)
-    item = relationship("InventoryItem", back_populates="lendings")
 
 
 def create_tables(engine):
