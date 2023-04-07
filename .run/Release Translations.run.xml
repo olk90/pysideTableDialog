@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Release Translations" type="ShConfigurationType">
-    <option name="SCRIPT_TEXT" value=" pyside6-lrelease base_de.ts -qm translations/base_de.qm" />
+    <option name="SCRIPT_TEXT" value=" pyside6-lrelease translations/base_de.ts -qm translations/base_de.qm" />
     <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
     <option name="SCRIPT_PATH" value="" />
     <option name="SCRIPT_OPTIONS" value="" />

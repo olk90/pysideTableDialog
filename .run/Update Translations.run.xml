@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Update Translations" type="ShConfigurationType">
-    <option name="SCRIPT_TEXT" value="pyside6-lupdate views/*.py logic/*.py -recursive -extensions ui ./ui -ts base_de.ts" />
+    <option name="SCRIPT_TEXT" value="pyside6-lupdate views/*.py logic/*.py -recursive -extensions ui ./ui -ts translations/base_de.ts" />
     <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
     <option name="SCRIPT_PATH" value="" />
     <option name="SCRIPT_OPTIONS" value="" />
