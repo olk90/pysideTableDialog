@@ -41,7 +41,7 @@ available in this package:
 
 These are projects, that are based on the structure provided by this repository:
 
-* [pYIM](https://github.com/olk90/pyIM): An inventory management tool (Work
+* [pyIM](https://github.com/olk90/pyIM): An inventory management tool (Work
   in progress)
 * [shift](https://github.com/olk90/shift): Planning tool for working schedules
   in the medical field
