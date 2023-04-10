@@ -1,14 +1,15 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-    <module name="pyIM" />
+    <module name="pysideTableDialog" />
     <option name="INTERPRETER_OPTIONS" value="" />
     <option name="PARENT_ENVS" value="true" />
     <envs>
       <env name="PYTHONUNBUFFERED" value="1" />
     </envs>
-    <option name="SDK_HOME" value="" />
+    <option name="SDK_HOME" value="$USER_HOME$/.local/share/virtualenvs/pysideTableDialog-uBd_sNKq/bin/python" />
+    <option name="SDK_NAME" value="Pipenv (pysideTableDialog)" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-    <option name="IS_MODULE_SDK" value="true" />
+    <option name="IS_MODULE_SDK" value="false" />
     <option name="ADD_CONTENT_ROOTS" value="true" />
     <option name="ADD_SOURCE_ROOTS" value="true" />
     <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
