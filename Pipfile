@@ -4,10 +4,10 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pyside6 = "*"
-pyqtdarktheme = "*"
-sqlalchemy = "*"
-python-dateutil = "*"
+pyside6 = "==6.4.3"
+shiboken6 = "==6.4.3"
+sqlalchemy = "==2.0.29"
+python-dateutil = "==2.9.0.post0"
 
 [dev-packages]
 

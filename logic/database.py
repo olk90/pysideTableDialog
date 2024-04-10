@@ -1,6 +1,6 @@
 import logging
 import sys
-from datetime import datetime, date
+from datetime import datetime
 from logging.handlers import RotatingFileHandler
 
 from PySide6.QtCore import Qt
@@ -11,9 +11,7 @@ from sqlalchemy.orm import Session
 
 from logic import configure_file_handler
 from logic.config import properties
-from logic.model import create_tables, Person, InventoryItem, Base, LendingHistory
-
-db = ce("sqlite:///pyIM.db")
+from logic.model import create_tables, Person, InventoryItem, Base
 
 rfh: RotatingFileHandler = configure_file_handler("database")
 
@@ -22,6 +20,8 @@ logger.setLevel(logging.INFO)
 logger.addHandler(rfh)
 
 logger.info("Logger initialised")
+
+db = ce("sqlite:///pyIM.db")
 
 
 def init_database():
@@ -121,37 +121,6 @@ def update_inventory(value_dict: dict):
 
     lender_id = value_dict["lender"]
     item.lender_id = lender_id
-    if lender_id:
-        check_and_lend(s, lender_id, item)
-    s.commit()
-
-
-def check_and_lend(s: Session, lender_id: int, item: InventoryItem):
-    history_record = s.query(LendingHistory).filter(
-        LendingHistory.lender_id == lender_id,
-        LendingHistory.item_id == item.id,
-        LendingHistory.return_date == None
-    ).first()
-    if not history_record:
-        today = date.today()
-        history_record = LendingHistory(lending_date=today, item_id=item.id, lender_id=lender_id)
-        s.add(history_record)
-        item.lending_date = today
-        item.available = False
-
-
-def check_and_return(item_id: int):
-    s = properties.open_session()
-    history_record = s.query(LendingHistory).filter(
-        LendingHistory.item_id == item_id,
-        LendingHistory.return_date == None
-    ).first()
-    if history_record:
-        history_record.return_date = date.today()
-        item = s.query(InventoryItem).filter(InventoryItem.id == item_id).first()
-        item.lending_date = None
-        item.lender_id = None
-        item.available = True
     s.commit()
 
 
