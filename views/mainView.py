@@ -2,7 +2,7 @@ from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import QMainWindow, QVBoxLayout, QWidget
 
 from logic.table_models import PersonModel
-from views.base_classes import OptionsEditorDialog, TableDialog
+from views.base_classes import OptionsEditorDialog, TableDialog, EncryptEditorDialog
 from views.helpers import load_ui_file
 from views.person import PersonWidget
 
@@ -29,7 +29,10 @@ class MainWindow(QMainWindow):
         ui_file.close()
 
         self.tabview = self.widget.tabview
+        self.encrypt_dialog = EncryptEditorDialog(self)
+
         self.optionsButton = self.widget.optionsButton
+        self.encrypt_button = self.widget.encryptButton
 
         self.configure_buttons()
         self.configure_tabview()
@@ -57,6 +60,7 @@ class MainWindow(QMainWindow):
 
     def configure_buttons(self):
         self.widget.loadDbButton.clicked.connect(self.load_access_history)
+        self.encrypt_button.clicked.connect(self.open_encrypt)
         self.optionsButton.clicked.connect(self.open_options)
 
     def load_access_history(self):
@@ -64,3 +68,7 @@ class MainWindow(QMainWindow):
 
     def open_options(self):
         self.options_dialog.exec_()
+
+    def open_encrypt(self):
+        self.encrypt_dialog.exec_()
+        self.reload_current_widget()

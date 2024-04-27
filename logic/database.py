@@ -47,6 +47,13 @@ def find_by_id(identifier: int, entities):
     return result
 
 
+def find_all_off(entities) -> list:
+    s = properties.open_session()
+    result: list = s.query(entities).all()
+    s.close()
+    return result
+
+
 def load_persons(persons):
     with Session(db) as session:
         for p in persons:

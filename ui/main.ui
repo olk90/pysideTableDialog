@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string/>
+   <string>Shift</string>
   </property>
   <property name="accessibleName">
    <string/>
@@ -63,6 +63,19 @@
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="encryptButton">
+         <property name="minimumSize">
+          <size>
+           <width>150</width>
+           <height>36</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Encrypt</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="optionsButton">
          <property name="minimumSize">
           <size>
@@ -72,6 +85,19 @@
          </property>
          <property name="text">
           <string>Options</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="logButton">
+         <property name="minimumSize">
+          <size>
+           <width>150</width>
+           <height>34</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Logs</string>
          </property>
         </widget>
        </item>

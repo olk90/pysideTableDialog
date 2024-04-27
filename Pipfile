@@ -9,6 +9,7 @@ shiboken6 = "==6.6.2"
 sqlalchemy = "==2.0.29"
 python-dateutil = "==2.9.0.post0"
 pyqtdarktheme = "==2.1.0"
+cryptography = "==42.0.5"
 
 [dev-packages]
 
