@@ -10,6 +10,7 @@ from PySide6.QtWidgets import QApplication, QWidget
 
 from logic.config import properties
 from logic.database import init_database
+from logic.update_helper import execute_updates
 from views.mainView import MainWindow
 
 userHome = Path.home()
@@ -54,6 +55,8 @@ if __name__ == "__main__":
 
     load_translations()
     load_theme()
+
+    execute_updates()
 
     form = QWidget(None)
     MainWindow(form)

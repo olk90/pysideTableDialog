@@ -5,6 +5,7 @@ from sqlalchemy.orm import relationship
 Base = declarative_base()
 personTableName = "Person"
 inventoryTableName = "InventoryItem"
+versionInfoTableName = "VersionInfo"
 
 
 class DatabaseExport(object):
@@ -51,6 +52,13 @@ class InventoryItem(Base):
 
     lender_id = Column(Integer, ForeignKey("Person.id"))
     lender = relationship(personTableName, back_populates="items")
+
+
+class VersionInfo(Base):
+    __tablename__ = versionInfoTableName
+
+    id = Column(Integer, primary_key=True)
+    version = Column(Integer, nullable=False, default=0)
 
 
 def create_tables(engine):

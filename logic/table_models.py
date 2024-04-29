@@ -3,7 +3,7 @@ from PySide6.QtGui import Qt
 
 from logic.config import properties
 from logic.crypt import decrypt_string
-from logic.database import find_all_off
+from logic.database import find_all_of
 from logic.model import Person
 
 
@@ -33,7 +33,7 @@ class SearchTableModel(QAbstractTableModel):
 
 class PersonModel(SearchTableModel):
     def __init__(self, search: str = ""):
-        items = find_all_off(Person)
+        items = find_all_of(Person)
         super(PersonModel, self).__init__(4, search, items)
 
     def data(self, index, role=Qt.DisplayRole):

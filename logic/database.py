@@ -11,7 +11,7 @@ from sqlalchemy.orm import Session
 
 from logic import configure_file_handler
 from logic.config import properties
-from logic.model import create_tables, Person, InventoryItem, Base
+from logic.model import create_tables, Person, InventoryItem, Base, VersionInfo
 
 rfh: RotatingFileHandler = configure_file_handler("database")
 
@@ -47,7 +47,7 @@ def find_by_id(identifier: int, entities):
     return result
 
 
-def find_all_off(entities) -> list:
+def find_all_of(entities) -> list:
     s = properties.open_session()
     result: list = s.query(entities).all()
     s.close()
@@ -137,4 +137,11 @@ def update_person(value_dict: dict):
     person.firstname = value_dict["firstname"]
     person.lastname = value_dict["lastname"]
     person.email = value_dict["email"]
+    s.commit()
+
+
+def update_version_info(version: int):
+    s = properties.open_session()
+    vi = s.query(VersionInfo).first()
+    vi.version = version
     s.commit()
