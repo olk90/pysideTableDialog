@@ -90,16 +90,13 @@ class PersonWidget(TableDialog):
     def get_editor_widget(self) -> EditorWidget:
         return PersonEditorWidget()
 
-    def configure_search(self):
-        self.searchLine.textChanged.connect(lambda x: self.reload_table_contents(PersonModel(self.searchLine.text())))
-
     def delete_item(self):
         dialog = ConfirmDeletionDialog(self)
         button = dialog.exec_()
         if button == QMessageBox.AcceptRole:
             person: Person = self.get_selected_item()
             delete_item(person)
-            search = self.searchLine.text()
+            search = self.search_line.text()
             self.reload_table_contents(model=PersonModel(search))
             self.editor.clear_fields()
 
@@ -111,7 +108,7 @@ class PersonWidget(TableDialog):
     def commit_changes(self):
         value_dict: dict = self.editor.get_values()
         update_person(value_dict)
-        search = self.searchLine.text()
+        search = self.search_line.text()
         self.reload_table_contents(model=PersonModel(search))
         self.editor.clear_fields()
 

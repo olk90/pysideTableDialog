@@ -53,7 +53,7 @@ class MainWindow(QMainWindow):
     def reload_current_widget(self):
         current: QWidget = self.tabview.currentWidget()
         if isinstance(current, TableDialog):
-            search = current.searchLine.text()
+            search = current.search_line.text()
             # example
             if isinstance(current, PersonWidget):
                 current.reload_table_contents(PersonModel(search))

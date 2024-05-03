@@ -5,7 +5,7 @@ from typing import Union
 
 import qdarktheme
 from PySide6.QtCore import QItemSelectionModel, QModelIndex, \
-    QPersistentModelIndex, Qt
+    QPersistentModelIndex, Qt, QSortFilterProxyModel
 from PySide6.QtGui import QPainter, QIcon
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import QDialog, QWidget, QDialogButtonBox, QHBoxLayout, QMainWindow, QComboBox, QApplication, \
@@ -229,7 +229,8 @@ class TableDialog(QWidget):
         table_file = load_ui_file("ui/tableView.ui")
         self.table_widget = loader.load(table_file)
         table_file.close()
-        self.searchLine: QLineEdit = self.table_widget.searchLine
+        self.search_line: QLineEdit = self.table_widget.searchLine
+        self.proxy_model = QSortFilterProxyModel()
 
         self.has_editor = has_editor
         if has_editor:
@@ -248,14 +249,18 @@ class TableDialog(QWidget):
         if configure_widgets:
             # widgets might be configured in a subclass afterwards
             self.configure_widgets()
-            self.configure_search()
 
     def get_table(self) -> QTableView:
         return self.table_widget.table
 
     def setup_table(self, model: SearchTableModel, header_range: range):
         tableview: QTableView = self.get_table()
-        tableview.setModel(model)
+
+        self.proxy_model.setSourceModel(model)
+        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.proxy_model.setFilterKeyColumn(-1)  # Filter all columns
+
+        tableview.setModel(self.proxy_model)
         tableview.setSelectionBehavior(QTableView.SelectRows)
         tableview.setSelectionMode(QAbstractItemView.SingleSelection)
         tableview.selectionModel().selectionChanged.connect(self.reload_editor)
@@ -282,6 +287,7 @@ class TableDialog(QWidget):
     def configure_widgets(self):
         self.table_widget.addButton.clicked.connect(self.add_item)
         self.table_widget.deleteButton.clicked.connect(self.delete_item)
+        self.search_line.textChanged.connect(self.proxy_model.setFilterRegularExpression)
         if self.has_editor:
             self.editor.buttonBox.accepted.connect(self.commit_changes)
             self.editor.buttonBox.rejected.connect(self.revert_changes)
@@ -296,9 +302,6 @@ class TableDialog(QWidget):
             return model.data(model.index(index.row(), 0))
         else:
             return None
-
-    def configure_search(self):
-        """Must be implemented by subclass"""
 
     def get_editor_widget(self) -> EditorWidget:
         """Must be implemented by subclass"""
