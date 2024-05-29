@@ -327,7 +327,13 @@ class CenteredItemDelegate(QItemDelegate):
 
     def paint(self, painter: QPainter, option: QStyleOptionViewItem, index: Union[QModelIndex, QPersistentModelIndex]):
         option.displayAlignment = Qt.AlignCenter
-        super(CenteredItemDelegate, self).paint(painter, option, index)
+
+        model = index.model()
+        data = model.index(index.row(), index.column()).data()
+        if data is None or data == "None":
+            self.drawDisplay(painter, option, option.rect, "--")
+        else:
+            super(CenteredItemDelegate, self).paint(painter, option, index)
 
 
 class DateItemDelegate(CenteredItemDelegate):
