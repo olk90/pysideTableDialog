@@ -1,28 +1,43 @@
+from typing import Callable, Union, Any
+
 from sqlalchemy import DDL
 
 from logic.database import db, logger, find_all_of, persist_item, update_version_info
 from logic.model import VersionInfo
+from updates.update_functions import dummy_update
 
 
 class Update:
 
-    def __init__(self, version: int, update_script: str):
+    def __init__(self, version: int, action: Union[str, Callable[..., Any]], **kwargs):
         self.version = version
-        self.update_script = DDL(update_script)
+        self.kwargs = kwargs
+        self.action = action
+        if isinstance(action, str):
+            self.action = DDL(action)
 
     def execute(self):
-        logger.info(f"Update {self.version}: {self.update_script}")
+        logger.info(f"Update {self.version}: {self.action}")
+        if isinstance(self.action, str):
+            self.db_update()
+        elif callable(self.action):
+            self.action(**self.kwargs)
+        else:
+            raise TypeError("Action must be either an SQL string or a callable function")
+
+    def db_update(self):
         try:
             engine = db.engine
             with engine.connect() as conn:
-                conn.execute(self.update_script)
+                conn.execute(self.action)
         except Exception as e:
             logger.error(f"Update {self.version} failed: {e}")
 
 
 # list that contains all updates
 updates = [
-    Update(1, "ALTER TABLE Person ADD COLUMN age INTEGER DEFAULT 0;")
+    Update(1, "ALTER TABLE Person ADD COLUMN age INTEGER DEFAULT 0;"),
+    Update(2, dummy_update)
 ]
 
 
