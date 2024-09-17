@@ -4,7 +4,7 @@ from sqlalchemy import DDL
 
 from logic.database import db, logger, find_all_of, persist_item, update_version_info
 from logic.model import VersionInfo
-from updates.update_functions import dummy_update
+from updates.update_functions import dummy_update, insert_encryption_state
 
 
 class Update:
@@ -37,7 +37,8 @@ class Update:
 # list that contains all updates
 updates = [
     Update(1, "ALTER TABLE Person ADD COLUMN age INTEGER DEFAULT 0;"),
-    Update(2, dummy_update)
+    Update(2, dummy_update),
+    Update(3, insert_encryption_state)
 ]
 
 
@@ -46,7 +47,7 @@ def execute_updates():
     if len(version_infos) == 0:
         vi = VersionInfo()
         persist_item(vi)
-        current_version = 0
+        current_version = max(updates, key=lambda x: x.version)
     else:
         vi = version_infos[0]
         current_version = vi.version

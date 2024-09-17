@@ -6,6 +6,7 @@ Base = declarative_base()
 personTableName = "Person"
 inventoryTableName = "InventoryItem"
 versionInfoTableName = "VersionInfo"
+encryptionStateName = "EncryptionState"
 
 
 class DatabaseExport(object):
@@ -59,6 +60,13 @@ class VersionInfo(Base):
 
     id = Column(Integer, primary_key=True)
     version = Column(Integer, nullable=False, default=0)
+
+
+class EncryptionState(Base):
+    __tablename__ = encryptionStateName
+
+    id = Column(Integer, primary_key=True)
+    encryption_state = Column(Boolean, nullable=False)
 
 
 def create_tables(engine):

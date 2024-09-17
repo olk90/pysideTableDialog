@@ -11,7 +11,7 @@ from sqlalchemy.orm import Session
 
 from logic import configure_file_handler
 from logic.config import properties
-from logic.model import create_tables, Person, InventoryItem, Base, VersionInfo
+from logic.model import create_tables, Person, InventoryItem, Base, VersionInfo, EncryptionState
 
 rfh: RotatingFileHandler = configure_file_handler("database")
 
@@ -144,4 +144,11 @@ def update_version_info(version: int):
     s = properties.open_session()
     vi = s.query(VersionInfo).first()
     vi.version = version
+    s.commit()
+
+
+def set_encryption_state(state: bool):
+    s = properties.open_session()
+    es = s.query(EncryptionState).first()
+    es.encryption_state = state
     s.commit()

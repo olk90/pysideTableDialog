@@ -5,6 +5,9 @@ import sys
 from PySide6.QtCore import QFile
 from PySide6.QtWidgets import QComboBox, QSpinBox
 
+from logic.config import properties
+from logic.model import EncryptionState
+
 from views.lists import MonthList
 
 
@@ -42,3 +45,12 @@ def get_date(mot_required: bool, month: int, year: int) -> dt.date | None:
     day_range = get_day_range(month, year)
     day = day_range[-1]
     return dt.date(year, month, day)
+
+
+def login_prompt():
+    s = properties.open_session()
+    es: EncryptionState = s.query(EncryptionState).first()
+    s.close()
+    if es.encryption_state:
+        from login import spawn_login_prompt
+        spawn_login_prompt()

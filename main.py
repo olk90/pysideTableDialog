@@ -10,6 +10,7 @@ from PySide6.QtWidgets import QApplication, QWidget
 
 from logic.config import properties
 from logic.database import init_database
+from views.base_functions import login_prompt
 from updates.update_helper import execute_updates
 from views.mainView import MainWindow
 
@@ -47,16 +48,18 @@ def write_config_file():
 if __name__ == "__main__":
     QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_ShareOpenGLContexts)
 
+    app = QApplication()
+
     properties.load_config_file()
 
     init_database()
-
-    app = QApplication()
 
     load_translations()
     load_theme()
 
     execute_updates()
+
+    login_prompt()
 
     form = QWidget(None)
     MainWindow(form)

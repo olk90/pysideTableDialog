@@ -1,5 +1,7 @@
 from PySide6.QtWidgets import QHBoxLayout, QWidget, QMessageBox, QDialogButtonBox, QLabel, QLineEdit, QTableView
 
+from logic.config import properties
+from logic.crypt import decrypt_string
 from logic.database import persist_item, delete_item, find_by_id, update_person
 from logic.model import Person
 from logic.table_models import PersonModel
@@ -57,9 +59,19 @@ class PersonEditorWidget(EditorWidget):
 
     def fill_fields(self, person: Person):
         self.item_id = person.id
-        self.firstname_edit.setText(person.firstname)
-        self.lastname_edit.setText(person.lastname)
-        self.email_edit.setText(person.email)
+        firstname = person.firstname
+        lastname = person.lastname
+        email = person.email
+
+        key = properties.encryption_key
+        if key is not None:
+            firstname = decrypt_string(key, firstname)
+            lastname = decrypt_string(key, lastname)
+            email = decrypt_string(key, email)
+
+        self.firstname_edit.setText(firstname)
+        self.lastname_edit.setText(lastname)
+        self.email_edit.setText(email)
 
     def get_values(self) -> dict:
         return {
