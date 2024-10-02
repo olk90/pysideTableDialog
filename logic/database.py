@@ -3,7 +3,7 @@ import sys
 from datetime import datetime
 from logging.handlers import RotatingFileHandler
 
-from PySide6.QtCore import Qt
+from PySide6.QtGui import Qt
 from PySide6.QtSql import QSqlDatabase, QSqlQueryModel
 from PySide6.QtWidgets import QComboBox
 from sqlalchemy import create_engine as ce
@@ -24,19 +24,22 @@ logger.info("Logger initialised")
 db = ce("sqlite:///pyIM.db")
 
 
-def init_database():
-    print("Connecting to database {}".format(db))
+def init_database(app_launch: bool = True):
+    if app_launch:
+        logger.info("Connecting to database {}".format(db))
+
     db.connect()
 
-    print("Initializing database")
-    create_tables(db)
+    if app_launch:
+        logger.info("Initializing database")
+        create_tables(db)
 
-    print("Connect database to PySide")
+        logger.info("Connect database to PySide")
     database = QSqlDatabase.addDatabase("QSQLITE")
     database.setDatabaseName("pyIM.db")
 
     if not database.open():
-        print("Unable to open database")
+        logger.info("Unable to open database")
         sys.exit(1)
 
 
