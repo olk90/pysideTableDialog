@@ -10,8 +10,8 @@ from PySide6.QtWidgets import QApplication, QWidget
 
 from logic.config import properties
 from logic.database import init_database
-from views.base_functions import login_prompt
 from updates.update_helper import execute_updates
+from views.base_functions import login_prompt
 from views.mainView import MainWindow
 
 userHome = Path.home()

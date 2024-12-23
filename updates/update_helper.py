@@ -2,7 +2,7 @@ from typing import Callable, Union, Any
 
 from sqlalchemy import DDL, text
 
-from logic.database import db, logger, find_all_of, persist_item, update_version_info, init_database
+from logic.database import logger, find_all_of, persist_item, update_version_info, init_database
 from logic.model import VersionInfo
 from updates.update_functions import dummy_update, insert_encryption_state
 

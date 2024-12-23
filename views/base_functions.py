@@ -7,7 +7,6 @@ from PySide6.QtWidgets import QComboBox, QSpinBox
 
 from logic.config import properties
 from logic.model import EncryptionState
-
 from views.lists import MonthList
 
 

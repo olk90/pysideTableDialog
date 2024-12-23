@@ -1,11 +1,11 @@
 import sys
 from datetime import date, datetime
-from dateutil import relativedelta as rd
 
 from PySide6 import QtCore
 from PySide6.QtCore import QFile, QCoreApplication
 from PySide6.QtGui import QColor, QBrush, QPen, Qt
 from PySide6.QtWidgets import QComboBox, QSpinBox
+from dateutil import relativedelta as rd
 
 from logic.config import properties
 

@@ -1,7 +1,6 @@
 from PySide6.QtWidgets import QMainWindow, QLineEdit, QHBoxLayout, QApplication
 
 from logic.config import properties
-from logic.crypt import decrypt_persons
 from views.base_classes import EditorDialog
 
 
