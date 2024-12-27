@@ -47,9 +47,8 @@ def get_date(mot_required: bool, month: int, year: int) -> dt.date | None:
 
 
 def login_prompt():
-    s = properties.open_session()
-    es: EncryptionState = s.query(EncryptionState).first()
-    s.close()
-    if es.encryption_state:
-        from login import spawn_login_prompt
-        spawn_login_prompt()
+    with properties.open_session() as s:
+        es: EncryptionState = s.query(EncryptionState).first()
+        if es and es.encryption_state:
+            from login import spawn_login_prompt
+            spawn_login_prompt()

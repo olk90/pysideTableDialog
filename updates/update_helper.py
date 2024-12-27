@@ -62,7 +62,8 @@ def execute_updates():
     if len(version_infos) == 0:
         vi = VersionInfo()
         persist_item(vi)
-        current_version = max(updates, key=lambda x: x.version)
+        last_update: Update = max(updates, key=lambda x: x.version)
+        current_version = last_update.version
     else:
         vi = version_infos[0]
         current_version = vi.version
