@@ -223,15 +223,12 @@ class OptionsEditorDialog(EditorDialog):
     def update_theme(self):
         selected_index = self.theme_box.currentIndex()
         properties.theme_index = selected_index
-        app = QApplication.instance()
         if selected_index == 0:
-            app.setStyleSheet(qdarktheme.setup_theme())
+            qdarktheme.setup_theme()
         elif selected_index == 1:
-            app.setStyleSheet(qdarktheme.setup_theme("light"))
+            qdarktheme.setup_theme("light")
         elif selected_index == 2:
-            app.setStyleSheet(qdarktheme.setup_theme("auto"))
-        else:
-            app.setStyleSheet(None)
+            qdarktheme.setup_theme("auto")
 
 
 class TableDialog(QWidget):

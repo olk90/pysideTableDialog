@@ -30,9 +30,11 @@ def load_translations():
 
 def load_theme():
     if properties.theme_index == 0:
-        app.setStyleSheet(qdarktheme.load_stylesheet())
+        qdarktheme.setup_theme()
     elif properties.theme_index == 1:
-        app.setStyleSheet(qdarktheme.load_stylesheet("light"))
+        qdarktheme.setup_theme("light")
+    elif  properties.theme_index == 2:
+        qdarktheme.setup_theme("auto")
 
 
 def write_config_file():

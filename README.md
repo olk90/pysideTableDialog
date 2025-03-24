@@ -2,7 +2,7 @@
 
 This repository serves as a template for table based applications written in
 Python and PySide6. The theming is provided
-by _[PyQtDarkTheme](https://github.com/5yutan5/PyQtDarkTheme)_.
+by _[PyQtDarkTheme-fork](https://pypi.org/project/PyQtDarkTheme-fork/)_.
 
 **Note that this repository does not provide a functional app on its own!**
 
