@@ -225,9 +225,11 @@ class OptionsEditorDialog(EditorDialog):
         properties.theme_index = selected_index
         app = QApplication.instance()
         if selected_index == 0:
-            app.setStyleSheet(qdarktheme.load_stylesheet())
+            app.setStyleSheet(qdarktheme.setup_theme())
         elif selected_index == 1:
-            app.setStyleSheet(qdarktheme.load_stylesheet("light"))
+            app.setStyleSheet(qdarktheme.setup_theme("light"))
+        elif selected_index == 2:
+            app.setStyleSheet(qdarktheme.setup_theme("auto"))
         else:
             app.setStyleSheet(None)
 

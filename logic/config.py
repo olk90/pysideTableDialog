@@ -20,7 +20,7 @@ class Properties(QObject):
     encryption_key = None
 
     def get_themes(self) -> list:
-        themes = [self.tr("dark"), self.tr("light")]
+        themes = [self.tr("dark"), self.tr("light"), self.tr("auto")]
         return themes
 
     def write_config_file(self):
