@@ -352,10 +352,9 @@ class DateItemDelegate(CenteredItemDelegate):
     # year - month -day
     def format_ymd(self, index, option, painter):
         model = index.model()
-        date_str: str = model.index(index.row(), index.column()).data()
+        ymd_date: datetime.date = model.index(index.row(), index.column()).data()
         text: str = ""
-        if date_str:
-            ymd_date = datetime.strptime(date_str, '%Y-%m-%d')
+        if ymd_date:
             text = ymd_date.strftime("%a, %d %b %Y")
         option.displayAlignment = Qt.AlignCenter
         self.drawDisplay(painter, option, option.rect, text)
@@ -363,10 +362,9 @@ class DateItemDelegate(CenteredItemDelegate):
     # year - month
     def formal_ym(self, index, option, painter):
         model = index.model()
-        date_str: str = model.index(index.row(), index.column()).data()
+        ym_date: datetime.date = model.index(index.row(), index.column()).data()
         text: str = ""
-        if date_str:
-            ym_date = datetime.strptime(date_str, '%Y-%m-%d')
+        if ym_date:
             text = ym_date.strftime("%b/%Y")
         option.displayAlignment = Qt.AlignCenter
         self.drawDisplay(painter, option, option.rect, text)
