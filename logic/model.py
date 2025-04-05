@@ -38,6 +38,9 @@ class Person(Base):
     def get_full_name(self):
         return "{} {}".format(self.firstname, self.lastname)
 
+    def lower(self):
+        return self.get_full_name().lower()
+
 
 class InventoryItem(Base):
     __tablename__ = inventoryTableName
