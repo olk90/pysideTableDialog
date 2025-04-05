@@ -11,10 +11,21 @@ class SearchTableModel(QAbstractTableModel):
     def __init__(self, col_count, search: str = "", items=None):
         super(SearchTableModel, self).__init__()
         self.col_count = col_count
-        self.search = search
+        self.search = search.lower()  # Normalize to lowercase for easier matching
         if items is None:
             items = []
-        self.items = items
+        self.all_items = items  # Store full, unfiltered list of items
+        self.items = self.filter_items()  # Start with filtered list
+
+    def set_search(self, search: str):
+        """Update the search string and reapply filtering."""
+        self.search = search.lower()
+        self.items = self.filter_items()
+        self.layoutChanged.emit()  # Notify the view that the data has changed
+
+    def filter_items(self):
+        """Filter items based on the search string. Must be implemented by subclasses."""
+        return self.all_items
 
     def rowCount(self, parent=QModelIndex()):
         return len(self.items)
@@ -23,11 +34,11 @@ class SearchTableModel(QAbstractTableModel):
         return self.col_count
 
     def data(self, index, role=Qt.DisplayRole):
-        """Must be implemented by subclass"""
+        """Must be implemented by subclass."""
         pass
 
     def headerData(self, section, orientation, role=Qt.DisplayRole):
-        """Must be implemented by subclass"""
+        """Must be implemented by subclass."""
         pass
 
 
@@ -35,6 +46,28 @@ class PersonModel(SearchTableModel):
     def __init__(self, search: str = ""):
         items = find_all_of(Person)
         super(PersonModel, self).__init__(4, search, items)
+
+    def filter_items(self):
+        """Filter persons based on the search string."""
+        if not self.search:
+            return self.all_items  # No search; return all items
+
+        key = properties.encryption_key
+        # Normalize search value to lowercase for case-insensitive matching
+        search_lower = self.search
+        filtered = []
+        for person in self.all_items:
+            # Decrypt fields when necessary and match them against the search string
+            first_name = decrypt_string(key, person.firstname).lower() if key else person.firstname.lower()
+            last_name = decrypt_string(key, person.lastname).lower() if key else person.lastname.lower()
+            email = decrypt_string(key, person.email).lower() if key and person.email else person.email.lower()
+
+            if (search_lower in first_name or
+                    search_lower in last_name or
+                    (email and search_lower in email)):
+                filtered.append(person)
+
+        return filtered
 
     def data(self, index, role=Qt.DisplayRole):
         if role == Qt.DisplayRole:
