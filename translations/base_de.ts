@@ -4,7 +4,7 @@
 <context>
     <name>AddPersonDialog</name>
     <message>
-        <location filename="../views/person.py" line="15"/>
+        <location filename="../views/person.py" line="17"/>
         <source>Add Person</source>
         <translation>Person hinzufügen</translation>
     </message>
@@ -49,12 +49,12 @@
 <context>
     <name>EditorDialog</name>
     <message>
-        <location filename="../views/base_classes.py" line="38"/>
+        <location filename="../views/base_classes.py" line="39"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../views/base_classes.py" line="40"/>
+        <location filename="../views/base_classes.py" line="41"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
@@ -62,12 +62,12 @@
 <context>
     <name>EditorWidget</name>
     <message>
-        <location filename="../views/base_classes.py" line="74"/>
+        <location filename="../views/base_classes.py" line="75"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../views/base_classes.py" line="75"/>
+        <location filename="../views/base_classes.py" line="76"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
@@ -76,6 +76,7 @@
     <name>Form</name>
     <message>
         <location filename="../ui/encryptEditor.ui" line="14"/>
+        <location filename="../ui/loginPrompt.ui" line="14"/>
         <location filename="../ui/optionsEditor.ui" line="14"/>
         <location filename="../ui/personEditor.ui" line="14"/>
         <source>Form</source>
@@ -140,6 +141,12 @@
         <location filename="../ui/personEditor.ui" line="61"/>
         <source>E-Mail</source>
         <translation>E-Mail</translation>
+    </message>
+    <message>
+        <location filename="../ui/loginPrompt.ui" line="28"/>
+        <source>Enter key to unlock</source>
+        <translatorcomment>Schlüsseleingabe zum Entsperren</translatorcomment>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -216,17 +223,17 @@
 <context>
     <name>PersonModel</name>
     <message>
-        <location filename="../logic/table_models.py" line="70"/>
+        <location filename="../logic/table_models.py" line="103"/>
         <source>First Name</source>
         <translation>Vorname</translation>
     </message>
     <message>
-        <location filename="../logic/table_models.py" line="72"/>
+        <location filename="../logic/table_models.py" line="105"/>
         <source>Last Name</source>
         <translation>Nachname</translation>
     </message>
     <message>
-        <location filename="../logic/table_models.py" line="74"/>
+        <location filename="../logic/table_models.py" line="107"/>
         <source>E-Mail</source>
         <translation>E-Mail</translation>
     </message>
@@ -239,9 +246,14 @@
         <translation>dunkel</translation>
     </message>
     <message>
-        <location filename="../logic/config.py" line="24"/>
+        <location filename="../logic/config.py" line="23"/>
         <source>light</source>
         <translation>hell</translation>
+    </message>
+    <message>
+        <location filename="../logic/config.py" line="24"/>
+        <source>auto</source>
+        <translation>auto</translation>
     </message>
 </context>
 <context>
