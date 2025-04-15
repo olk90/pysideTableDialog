@@ -5,6 +5,7 @@ from logic.config import properties
 from logic.crypt import decrypt_string
 from logic.database import find_all_of
 from logic.model import Person
+from views.helpers import contains_search_text
 
 
 class SearchTableModel(QAbstractTableModel):
@@ -54,7 +55,7 @@ class PersonModel(SearchTableModel):
 
         key = properties.encryption_key
         # Normalize search value to lowercase for case-insensitive matching
-        search_lower = self.search
+        search_lower = self.search.lower()
         filtered = []
         for person in self.all_items:
             # Decrypt fields when necessary and match them against the search string
@@ -62,9 +63,10 @@ class PersonModel(SearchTableModel):
             last_name = decrypt_string(key, person.lastname).lower() if key else person.lastname.lower()
             email = decrypt_string(key, person.email).lower() if key and person.email else person.email.lower()
 
-            if (search_lower in first_name or
-                    search_lower in last_name or
-                    (email and search_lower in email)):
+            items = [first_name, last_name, email]
+            match = contains_search_text(search_lower, items)
+
+            if match:
                 filtered.append(person)
 
         return filtered

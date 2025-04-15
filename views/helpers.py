@@ -64,3 +64,10 @@ def calculate_background(mot_date, option, painter):
         pen.setStyle(Qt.NoPen)
         painter.setPen(pen)
         painter.drawRect(option.rect)
+
+
+def contains_search_text(search_text: str, items: list) -> bool:
+    for string in items:
+        if search_text.lower() in string.lower():
+            return True
+    return False
