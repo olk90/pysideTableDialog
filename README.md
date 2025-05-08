@@ -51,3 +51,6 @@ These are projects, that are based on the structure provided by this repository:
 Since I've learned using PySide basically only "by doing", there might be
 some best practices, I'm not aware of. So, if you have some suggestions or
 improvements, feel free to share them!
+
+I have moved this repository to https://codeberg.org/olk90/pysideTableDialog 
+where I will continue development.
